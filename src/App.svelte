@@ -1,32 +1,22 @@
 <script>
   import Navbar from "./Sections/Navbar.svelte";
+  import VCard from "./Sections/VCard.svelte";
+  import Form from "./UI/Form.svelte";
 
-  let disabled = true;
-  let name = "";
-  let firstInput = "";
-
-  function keyPressed(event) {
-    event.key === "Shift" ? "" : disabled = false;
-  }
-
-  function resetClicked() {
-    disabled = true;
-    name = "";
-    firstInput.focus();
-  }
+  let QRCode="";
 </script>
+
+<style>
+  main {
+    padding: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+</style> 
 
 <Navbar title="vCard Generator" />
 
-<form>
-  <label>
-    Name
-    <input
-      type="text"
-      placeholder="Please enter your name"
-      on:keydown={keyPressed}
-      bind:value={name}
-      bind:this={firstInput} />
-  </label>
-  <button {disabled} on:click|preventDefault={resetClicked}>Reset</button>
-</form>
+<main>
+  <Form on:createQRCode={e => {QRCode=e.detail}} />
+  <VCard {QRCode}/>
+</main>
