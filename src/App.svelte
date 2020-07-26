@@ -3,7 +3,8 @@
   import VCard from "./Sections/VCard.svelte";
   import Form from "./UI/Form.svelte";
 
-  let QRCode="";
+  let QRCode = false;
+  let values;
 </script>
 
 <style>
@@ -17,6 +18,6 @@
 <Navbar title="vCard Generator" />
 
 <main>
-  <Form on:createQRCode={e => {QRCode=e.detail}} />
-  <VCard {QRCode}/>
+  <Form bind:values on:createQRCode={e => {QRCode=e.detail}} />
+  <VCard {values} {QRCode}/>
 </main>
